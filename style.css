@@ -140,27 +140,47 @@ body {
     color: #fff;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 480px) {
+    /* 모바일에서는 세로 스크롤 가능하게 */
     body {
-        overflow: auto; /* 모바일에서는 스크롤 허용 */
+        overflow: auto;
+        background: #f0f0f0;
     }
 
+    /* 컨테이너: 화면에 꽉 차게, 그림자 줄임 */
     .container {
         width: 95vw;
         height: auto;
-        box-shadow: none;
+        margin: 40px auto;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        border-radius: 12px;
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: none;
     }
 
+    /* 각 슬라이드 아이템: 세로 정렬로 변경 */
     .slide .item {
         position: relative;
-        width: 80%;
-        height: 250px;
+        width: 90%;
+        height: 220px;
         left: 50%;
         transform: translateX(-50%);
-        margin-bottom: 20px;
+        margin: 15px 0;
+        border-radius: 10px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
     }
 
-    /* 콘텐츠 중앙 정렬 */
+    /* 모든 아이템 보이게 */
+    .slide .item:nth-child(n) {
+        opacity: 1;
+        left: 0;
+        top: 0;
+        transform: none;
+    }
+
+    /* 콘텐츠 중앙 정렬 + 폰트 축소 */
     .item .content {
         position: relative;
         top: auto;
@@ -168,16 +188,42 @@ body {
         transform: none;
         text-align: center;
         width: 100%;
-        color: #333;
+        color: #222;
         display: block;
+        padding: 15px;
+        background: rgba(255, 255, 255, 0.7);
+        border-radius: 10px;
     }
 
     .content .name {
-        font-size: 24px;
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 5px;
     }
 
+    .content .des {
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+
+    .content button {
+        padding: 8px 16px;
+        font-size: 14px;
+        border-radius: 6px;
+    }
+
+    /* 하단 버튼 영역 */
     .button {
         position: static;
-        margin-top: 20px;
+        margin: 15px 0;
+        text-align: center;
+    }
+
+    .button button {
+        width: 36px;
+        height: 32px;
+        font-size: 12px;
+        border-radius: 6px;
+        margin: 0 3px;
     }
 }
