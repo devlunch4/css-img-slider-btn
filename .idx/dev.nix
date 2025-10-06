@@ -1,53 +1,59 @@
-# To learn more about how to use Nix to configure your environment
-# see: https://developers.google.com/idx/guides/customize-idx-env
+# ==============================================
+# IDX dev.nix 환경 설정
+# ==============================================
+# 목적:
+# - Node.js 및 live-server 설치
+# - 루트 폴더 HTML 파일 실시간 웹 미리보기
+# - 파일 변경 시 자동 새로고침
+# - 기본 열 파일: index.html, README.md
+# - IDX web preview 사용, PORT 환경 변수 자동 설정
+# ==============================================
+
 { pkgs, ... }: {
-  # Which nixpkgs channel to use.
-  channel = "stable-24.05"; # or "unstable"
-  # Use https://search.nixos.org/packages to find packages
+  # 사용할 nixpkgs 채널
+  channel = "stable-24.05";
+
+  # 설치할 패키지 목록
   packages = [
-    # pkgs.go
-    # pkgs.python311
-    # pkgs.python311Packages.pip
-    # pkgs.nodejs_20
-    # pkgs.nodePackages.nodemon
+    pkgs.nodejs_20
+    pkgs.nodePackages.live-server
   ];
-  # Sets environment variables in the workspace
+
+  # 환경 변수 설정
   env = {};
+
   idx = {
-    # Search for the extensions you want on https://open-vsx.org/ and use "publisher.id"
+    # 설치할 VSCode 확장
     extensions = [
-      # "vscodevim.vim"
       "google.gemini-cli-vscode-ide-companion"
     ];
-    # Enable previews
+
     previews = {
       enable = true;
+
       previews = {
-        # web = {
-        #   # Example: run "npm run dev" with PORT set to IDX's defined port for previews,
-        #   # and show it in IDX's web preview panel
-        #   command = ["npm" "run" "dev"];
-        #   manager = "web";
-        #   env = {
-        #     # Environment variables to set for your server
-        #     PORT = "$PORT";
-        #   };
-        # };
+        web = {
+          # 웹 프리뷰용 명령어
+          command = ["npx" "live-server" "--port=$PORT" "--open=./" "--watch=./"];
+          manager = "web";
+
+          # PORT 환경 변수 설정
+          env = {
+            PORT = "$PORT";
+          };
+        };
       };
     };
-    # Workspace lifecycle hooks
+
     workspace = {
-      # Runs when a workspace is first created
+      # 워크스페이스 생성 시 기본 열 파일
       onCreate = {
-        # Example: install JS dependencies from NPM
-        # npm-install = "npm install";
-        # Open editors for the following files by default, if they exist:
-        default.openFiles = [ ".idx/dev.nix" "README.md" ];
+        default.openFiles = [ "index.html" "README.md" ];
       };
-      # Runs when the workspace is (re)started
+
+      # 워크스페이스 시작 시 web preview 실행
       onStart = {
-        # Example: start a background task to watch and re-build backend code
-        # watch-backend = "npm run watch-backend";
+        start-web-preview = "true";
       };
     };
   };
