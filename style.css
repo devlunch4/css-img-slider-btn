@@ -139,3 +139,45 @@ body {
     background: #ababab;
     color: #fff;
 }
+
+@media (max-width: 768px) {
+    body {
+        overflow: auto; /* 모바일에서는 스크롤 허용 */
+    }
+
+    .container {
+        width: 95vw;
+        height: auto;
+        box-shadow: none;
+    }
+
+    .slide .item {
+        position: relative;
+        width: 80%;
+        height: 250px;
+        left: 50%;
+        transform: translateX(-50%);
+        margin-bottom: 20px;
+    }
+
+    /* 콘텐츠 중앙 정렬 */
+    .item .content {
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: none;
+        text-align: center;
+        width: 100%;
+        color: #333;
+        display: block;
+    }
+
+    .content .name {
+        font-size: 24px;
+    }
+
+    .button {
+        position: static;
+        margin-top: 20px;
+    }
+}
